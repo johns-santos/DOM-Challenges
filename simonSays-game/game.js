@@ -1,8 +1,10 @@
-var buttonColours = ['red', 'blue', 'green', 'yellow']
-var gamePattern = []
-var userClickedPattern = []
-var started = false
-var level = 0
+var buttonColours = ['red', 'blue', 'green', 'yellow'];
+
+var gamePattern = [];
+var userClickedPattern = [];
+
+var started = false;
+var level = 0;
 
 //Use jQuery to detect when a keyboard key has been pressed, when that happens for the first time, call  nextSequence()
 $(document).on('keydown', function () {
@@ -11,7 +13,7 @@ $(document).on('keydown', function () {
     //if not, update h1, call nextSequence, & change started to true.
     $('#level-title').text('Level ' + level)
     nextSequence()
-    started = true
+    started = true;
   }
 })
 
@@ -26,23 +28,36 @@ $('.btn').click(function () {
   animatePress(userChosenColour)
 
   checkAnswer(userClickedPattern.length - 1)
+  
 })
 
 function checkAnswer (currentLevel) {
   if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
-    console.log('Sucess')
-
+    // If check pases call "nextSequence()" to continue
     if (userClickedPattern.length === gamePattern.length) {
       setTimeout(function () {
         nextSequence()
       }, 1000)
     }
   } else {
-    console.log('Wrong')
+    // 1 - Play WRONG sound
+    playSound("wrong");
+    // 2 - Change body background color by adding removing class.
+    $("body").addClass("game-over");
+    setTimeout(function(){
+      $("body").removeClass("game-over");
+    }, 200)
+    // 3 - Update h1 HTML
+    $("h1").html("GAME-OVER (ツ) <br/> Press any key to restart")
+    // 4 - clear values and restart game.
+    startOver();
+   
   }
+
 }
 
 function nextSequence () {
+  userClickedPattern = [];
   // Increment LEVEL by 1
   level++
 
@@ -52,6 +67,8 @@ function nextSequence () {
   var randomNumber = Math.floor(Math.random() * 4)
   var randomChosenColour = buttonColours[randomNumber]
   gamePattern.push(randomChosenColour)
+  
+  console.log(gamePattern);
 
   //Use JQuery to select button with mathcing ID as randomChosenColour
   //Add flash animation to button selected in 1.
@@ -76,4 +93,14 @@ function animatePress (currentColour) {
   setTimeout(function () {
     $('.' + currentColour).removeClass('pressed')
   }, 100)
+}
+
+
+
+function startOver(){
+ 
+    level = 0;
+    gamePattern = [];
+    started = false;
+
 }
