@@ -95,12 +95,15 @@ function animatePress (currentColour) {
   }, 100)
 }
 
-
-
 function startOver(){
- 
     level = 0;
     gamePattern = [];
     started = false;
-
 }
+
+
+
+// Reset button - calls startOver()
+  $("button").click(startOver);
+
+
