@@ -9,41 +9,50 @@ const notes = [{
     body: 'Get a new seat'
 }]
 
+const filters = {
+    searchText: ''
+}
+
+const renderNotes = function (notes, filters) {
+    const filteredNotes = notes.filter(function(note){
+        return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
+    })
+    // CLEAR id=notes div after every input
+    document.querySelector('#notes').innerHTML = '';
+    // Wrap note element in paragraph tages
+    filteredNotes.forEach(function (note){
+        const noteElement = document.createElement('p')
+        noteElement.textContent = note.title
+        document.querySelector('#notes').appendChild(noteElement)
+    })
+}
+
+renderNotes(notes, filters)
+
+
 document.querySelector('#create-note').addEventListener('click', function(e){
     console.log('Did this work?')
     e.target.textContent = "Button was clicked."
 })
 
-document.querySelector('#remove-all').addEventListener('click', function(e){
+document.querySelector('#remove-notes').addEventListener('click', function(e){
     document.querySelectorAll('.note').forEach(function(note){
         note.remove();
     })
 })
 
-
 document.querySelector('#search-text').addEventListener('input', function(e){
-    console.log(e.target.value)
+    filters.searchText = e.target.value;
+    renderNotes(notes, filters);
 })
 
 
 
-const findNote = function(array, string){
-    return notes.filter(function(note, index){
-        const noteTitle = note.title.toLowerCase().includes(string.toLowerCase());
-        const noteBody = note.body.toLowerCase().includes(string.toLowerCase())
-        return noteTitle || noteBody
-
-    })
-}
 
 
-// Search note by title
-// const findNote = function (notes, noteTitle) {
-//     const index = notes.findIndex(function (note, index) {
-//         return note.title.toLowerCase() === noteTitle.toLowerCase()
-//     })
-//     return notes[index]
-// }
 
-const note = findNote(notes, 'mod');
-console.log(note);
+
+
+
+
+
