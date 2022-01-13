@@ -8,12 +8,16 @@
   </head>
   <body>
     <h1>Todos App</h1>
-    <div><button id="add-todo">Add Todo</button></div>
+    <div>
+      <input type="text" id="new-todo" placeholder="New Todo" />
+   <button id="add-todo-btn">Add Todo</button></div>
+    <br>
     <div>
       <input type="text" id="search-text" placeholder="Filter Todos" />
     </div>
-    <div id="list"></div>
-    <div class="paragraphs"></div>
+    <div id="todo-list"></div>
+
+    <div><button id="remove-todos">Remove Todos</button></div>
 
     <script src="todos-app.js"></script>
   </body>
