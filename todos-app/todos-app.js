@@ -1,11 +1,11 @@
 const todos = [
   {
     text: 'Order dog food',
-    completed: false
+    completed: true
   },
   {
     text: 'Fix flat tire',
-    completed: false
+    completed: true
   },
   {
     text: 'Clean living room',
@@ -17,28 +17,29 @@ const todos = [
   }
 ]
 
-// SORT todos
-const sortTodos = function (todos) {
-  todos.sort(function (a, b) {
-    if (!a.completed && b.completed) {
-      return -1
-    } else if (!b.completed && a.completed) {
-      return 1
-    } else {
-      return 0
-    }
-  })
-}
-
-// Filter/search string - starting empty
+// Filter/search string array - starting with empty string.
 const filters = {
-  searchText: ''
+  searchText: '',
+  hideCompleted: false
 }
 
 const renderTodos = function (todos, filters) {
-  const filteredTodos = todos.filter(function (todo) {
+  let filteredTodos = todos.filter(function (todo) {
     return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
   })
+
+  // if hideCompleted checkbox selected mutate 'filteredTodos'
+  filteredTodos = filteredTodos.filter(function (todo) {
+    // return items where completed is FALSE - this works becuase if one is true to whole statement is true
+    return !filters.hideCompleted || !todo.completed
+    // //longway solution
+    // if(filters.hideCompleted){
+    //   return !todo.completed
+    // } else {
+    //   return true
+    // }
+  })
+
   // CLEAR .todo-list div after every input
   document.querySelector('#todo-list').innerHTML = ''
 
@@ -52,12 +53,11 @@ const renderTodos = function (todos, filters) {
 
   // Wrap todo in paragraph  element
   filteredTodos.forEach(function (todo) {
-    const todoElement = document.createElement('p')
-    todoElement.textContent = todo.text
-    document.querySelector('#todo-list').appendChild(todoElement)
+    const p = document.createElement('p')
+    p.textContent = todo.text
+    document.querySelector('#todo-list').appendChild(p)
   })
 }
-
 renderTodos(todos, filters)
 
 // Listen for input changes in
@@ -68,21 +68,19 @@ document.querySelector('#search-text').addEventListener('input', function (e) {
 
 document.querySelector('#add-todo').addEventListener('submit', function (e) {
   e.preventDefault()
-  if (e.target.elements.newTodo.value.length > 0) {
-    let todoText = e.target.elements.newTodo.value
-    todos.push({ text: todoText, completed: false })
-    renderTodos(todos, filters)
-    e.preventDefault()
-  } else e.preventDefault()
+  let todoText = e.target.elements.newTodo.value
+  todos.push({ text: todoText, completed: false })
+  renderTodos(todos, filters)
   e.target.elements.newTodo.value = ''
 })
 
+// hide completed checkbox
+document
+  .querySelector('#hide-completed')
+  .addEventListener('change', function (e) {
+    // Set hideCompleted filter to true or false (toggle effect by uncheck/check)
+    filters.hideCompleted = e.target.checked
+    renderTodos(todos, filters)
+  })
 
 
-
-// REMOVE TODO Button function
-// document.querySelector('#remove-todos').addEventListener('click', function (e) {
-//   document.querySelectorAll('p').forEach(function (todo) {
-//     todo.remove()
-//   })
-// })
