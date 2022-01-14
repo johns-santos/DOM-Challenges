@@ -30,16 +30,16 @@ const renderNotes = function (notes, filters) {
 renderNotes(notes, filters)
 
 
-document.querySelector('#create-note').addEventListener('click', function(e){
-    console.log('Did this work?')
-    e.target.textContent = "Button was clicked."
-})
+// document.querySelector('#create-note').addEventListener('click', function(e){
+//     console.log('Did this work?')
+//     e.target.textContent = "Button was clicked."
+// })
 
-document.querySelector('#remove-notes').addEventListener('click', function(e){
-    document.querySelectorAll('.note').forEach(function(note){
-        note.remove();
-    })
-})
+// document.querySelector('#remove-notes').addEventListener('click', function(e){
+//     document.querySelectorAll('.note').forEach(function(note){
+//         note.remove();
+//     })
+// })
 
 document.querySelector('#search-text').addEventListener('input', function(e){
     filters.searchText = e.target.value;
@@ -55,6 +55,12 @@ document.querySelector('#name-form').addEventListener('submit', function(e){
     console.log(e.target.elements.firstName.value);
     // Clear field after grabbing data
     e.target.elements.firstName.value = '';
+})
+
+
+// Checkbox
+document.querySelector('#check-box').addEventListener('change', function(e){
+    console.log(e.target.checked)
 })
 
 
