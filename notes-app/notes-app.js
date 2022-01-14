@@ -1,5 +1,5 @@
 const notes = [{
-    title: 'my next trip',
+    title: 'My next trip',
     body: 'I would like to go to Spain'
 },{
     title: 'Habbits to work on',
@@ -19,7 +19,7 @@ const renderNotes = function (notes, filters) {
     })
     // CLEAR id=notes div after every input
     document.querySelector('#notes').innerHTML = '';
-    // Wrap note element in paragraph tages
+    // Wrap note in paragraph element 
     filteredNotes.forEach(function (note){
         const noteElement = document.createElement('p')
         noteElement.textContent = note.title
@@ -45,6 +45,18 @@ document.querySelector('#search-text').addEventListener('input', function(e){
     filters.searchText = e.target.value;
     renderNotes(notes, filters);
 })
+
+
+// Grab data from NAME FORM
+document.querySelector('#name-form').addEventListener('submit', function(e){
+    // Cancel default behavior of refreshing page
+    e.preventDefault();
+    // elements property provides access to all form fields
+    console.log(e.target.elements.firstName.value);
+    // Clear field after grabbing data
+    e.target.elements.firstName.value = '';
+})
+
 
 
 
