@@ -17,6 +17,20 @@ const todos = [
   }
 ]
 
+// SORT todos
+const sortTodos = function (todos) {
+  todos.sort(function (a, b) {
+    if (!a.completed && b.completed) {
+      return -1
+    } else if (!b.completed && a.completed) {
+      return 1
+    } else {
+      return 0
+    }
+  })
+}
+
+// Filter/search string - starting empty
 const filters = {
   searchText: ''
 }
@@ -46,38 +60,29 @@ const renderTodos = function (todos, filters) {
 
 renderTodos(todos, filters)
 
-// Add eventListener to button
-document.querySelector('#add-todo-btn').addEventListener('click', function (e) {
-  console.log('Button has been clicked.')
-})
-
-// Add new-todo input
-document.querySelector('#new-todo').addEventListener('input', function (e) {
-  console.log(e.target.value)
-})
-
 // Listen for input changes in
 document.querySelector('#search-text').addEventListener('input', function (e) {
   filters.searchText = e.target.value
   renderTodos(todos, filters)
 })
 
-// SORT todos
-const sortTodos = function (todos) {
-  todos.sort(function (a, b) {
-    if (!a.completed && b.completed) {
-      return -1
-    } else if (!b.completed && a.completed) {
-      return 1
-    } else {
-      return 0
-    }
-  })
-}
+document.querySelector('#add-todo').addEventListener('submit', function (e) {
+  e.preventDefault()
+  if (e.target.elements.newTodo.value.length > 0) {
+    let todoText = e.target.elements.newTodo.value
+    todos.push({ text: todoText, completed: false })
+    renderTodos(todos, filters)
+    e.preventDefault()
+  } else e.preventDefault()
+  e.target.elements.newTodo.value = ''
+})
+
+
+
 
 // REMOVE TODO Button function
-document.querySelector('#remove-todos').addEventListener('click', function (e) {
-  document.querySelectorAll('p').forEach(function (todo) {
-    todo.remove()
-  })
-})
+// document.querySelector('#remove-todos').addEventListener('click', function (e) {
+//   document.querySelectorAll('p').forEach(function (todo) {
+//     todo.remove()
+//   })
+// })
