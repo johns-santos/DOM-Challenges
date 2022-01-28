@@ -11,24 +11,14 @@
     <h2>Take notes and never forget</h2>
     
     <input id="search-text" type="text" placeholder="Filter Notes" />
-
+    <select id="filter-by">
+      <option value="byEdited">Sort by last edited</option>
+      <option value="byCreated">Sort by recently created</option>
+      <option value="alphabetical">Sort alphabetically</option>
+    </select>
     <div id="notes"></div>
   <hr>
-
-    <form id="name-form" action="">
-      <input type="text" id="firstName" placeholder="First name">
-      <button id="submit" >Submit</button>
-    </form>
-
-
-    <br>
-    
-
-    <div>
-      <input type="checkbox" name="check-box" id="check-box">
-      <label for="check-box">Check here to select</label>
-    </div>
-
+  <button id="create-note">Create Note</button>
     <script src="notes-app.js"></script>
   </body>
 </html>
