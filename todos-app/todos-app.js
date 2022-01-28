@@ -1,27 +1,19 @@
-const todos = [
-  {
-    text: 'Order dog food',
-    completed: true
-  },
-  {
-    text: 'Fix flat tire',
-    completed: true
-  },
-  {
-    text: 'Clean living room',
-    completed: false
-  },
-  {
-    text: 'Complete application',
-    completed: true
-  }
-]
+let todos = []
 
 // Filter/search string array - starting with empty string.
 const filters = {
   searchText: '',
   hideCompleted: false
 }
+
+
+// Check for existing saved data
+const todosJSON = localStorage.getItem('todos')
+
+if(todosJSON !== null) {
+    todos = JSON.parse(todosJSON)
+}
+
 
 const renderTodos = function (todos, filters) {
   let filteredTodos = todos.filter(function (todo) {
@@ -32,12 +24,6 @@ const renderTodos = function (todos, filters) {
   filteredTodos = filteredTodos.filter(function (todo) {
     // return items where completed is FALSE - this works becuase if one is true to whole statement is true
     return !filters.hideCompleted || !todo.completed
-    // //longway solution
-    // if(filters.hideCompleted){
-    //   return !todo.completed
-    // } else {
-    //   return true
-    // }
   })
 
   // CLEAR .todo-list div after every input
@@ -51,12 +37,12 @@ const renderTodos = function (todos, filters) {
   summary.textContent = `You have ${incomplete.length} todos left to complete.`
   document.querySelector('#todo-list').appendChild(summary)
 
-  // Wrap todo in paragraph  element
-  filteredTodos.forEach(function (todo) {
-    const p = document.createElement('p')
-    p.textContent = todo.text
-    document.querySelector('#todo-list').appendChild(p)
-  })
+ // Wrap todo in paragraph  element
+ filteredTodos.forEach(function (todo) {
+  const p = document.createElement('p')
+  p.textContent = todo.text
+  document.querySelector('#todo-list').appendChild(p)
+})
 }
 renderTodos(todos, filters)
 
@@ -70,8 +56,10 @@ document.querySelector('#add-todo').addEventListener('submit', function (e) {
   e.preventDefault()
   let todoText = e.target.elements.newTodo.value
   todos.push({ text: todoText, completed: false })
+  localStorage.setItem('todos', JSON.stringify(todos))
   renderTodos(todos, filters)
   e.target.elements.newTodo.value = ''
+
 })
 
 // hide completed checkbox
