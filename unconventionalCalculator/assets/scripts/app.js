@@ -1,5 +1,6 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
+let logEntries = [];
 
 
  //Gets user input and converts to integer
@@ -19,6 +20,16 @@ function add () {
   const initialResult = currentResult;
   currentResult = currentResult + enteredNumber;
   createAndWriteOutput('+', initialResult, enteredNumber);
+  const logEntry = 
+    { operation: 'ADD',
+    preResult: initialResult,
+    number: enteredNumber,
+    result: currentResult,
+    
+    };
+  logEntries.push(logEntry);
+  console.log(logEntry.operation);
+  console.log(logEntries);
 }
 
 
