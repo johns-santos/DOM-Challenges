@@ -46,7 +46,7 @@ function calculateResult(calculationType) {
     currentResult /= enteredNumber;
     mathOperator = '/';
   }
-  else {
+  else if (calculationType === 'SUBTRACT') {
     currentResult -= enteredNumber;
     mathOperator = '-';
   }
