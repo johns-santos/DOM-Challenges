@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      div {
+        margin: auto 30px auto 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <br>
+    <br>
+    
+    <br>
+
+    <div>
+
+      <h1>THROW, TRY, CATCH</h1>
+
+    <code>
+      
+      function getMaxLifeValues () { <br>
+        const enteredValue = prompt(<br>
+          'Maximum life for you and the monster.',<br>
+          '100'<br>
+        )<br>
+
+        const parsedValue = parseInt(enteredValue)<br>
+        if (isNaN(parsedValue) || parsedValue <= 0) {
+          throw { message: 'Invalid user input, not a number!' }<br></h4> 
+        }<br>
+        return parsedValue<br>
+      }<br>
+
+      let chosenMaxLife<br>
+      try</strong></em> { </h4><br>
+        chosenMaxLife = getMaxLifeValues()<br>
+      }  catch (error) {<br></h4>
+        console.log(error)<br>
+        chosenMaxLife = 100<br>
+      }<br>
+
+    </code>
+
+  </div>
+
+  <title>Document</title>
+
+  <script>
+    function getMaxLifeValues () {
+      const enteredValue = prompt(
+        'Maximum life for you and the monster.',
+        '100'
+      )
+
+      const parsedValue = parseInt(enteredValue)
+      if (isNaN(parsedValue) || parsedValue <= 0) {
+        throw { message: 'Invalid user input, not a number!' }
+      }
+      return parsedValue
+    }
+
+    let chosenMaxLife
+    try {
+      chosenMaxLife = getMaxLifeValues()
+    } catch (error) {
+      console.log(error)
+      chosenMaxLife = 100;
+      alert('Invalid input. Default value of 100 was used.')
+    }
+  </script>
+
+  </body>
+</html>
