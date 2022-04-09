@@ -10,17 +10,17 @@ const RESULT_COMPUTER_WINS = 'COMPUTER_WINS'
 
 let gameIsRunning = false
 
-const getPlayerChoice =  () => {
+const getPlayerChoice = () => {
   const selection = prompt(
     `${ROCK}, ${PAPER}, or ${SCISSORS}?`,
     ''
   ).toUpperCase()
   if (selection !== ROCK && selection !== PAPER && selection !== SCISSORS) {
     alert(`Invalid choice! We chose ${DEFAULT_USER_CHOICE} for you!`)
-    return DEFAULT_USER_CHOICE
+    return
   }
   return selection
-};
+}
 
 const getComputerChoice = () => {
   const randomValue = Math.random()
@@ -33,7 +33,8 @@ const getComputerChoice = () => {
   }
 }
 
-const getWinner = (cChoice, pChoice) =>
+// Using default arguement incase of invalid user choice.
+const getWinner = (cChoice, pChoice = DEFAULT_USER_CHOICE) =>
   cChoice === pChoice
     ? RESULT_DRAW
     : (cChoice === ROCK && pChoice === PAPER) ||
@@ -50,17 +51,21 @@ startGameBtn.addEventListener('click', function () {
   console.log('Game has started......')
   const playerChoice = getPlayerChoice()
   const computerChoice = getComputerChoice()
-  const winner = getWinner(computerChoice, playerChoice)
-
-  let message = `You picked ${playerChoice}, and computer picked ${computerChoice}. Therefor you`
-  if(winner === RESULT_DRAW) {
-    message = `${message} had a draw   :/`;
-  } else if (winner === RESULT_PLAYER_WINS) {
-    message = `${message} Win!    :)`;
+  let winner
+  if (playerChoice) {
+    winner = getWinner(computerChoice, playerChoice)
   } else {
-    message = `${message} lose.    :(`;
+    winner = getWinner(computerChoice)
+  }
+  let message = `You picked ${playerChoice || DEFAULT_USER_CHOICE}, and computer picked ${computerChoice}. Therefor you`
+  if (winner === RESULT_DRAW) {
+    message = `${message} had a draw   :/`
+  } else if (winner === RESULT_PLAYER_WINS) {
+    message = `${message} Win!    :)`
+  } else {
+    message = `${message} lose.    :(`
   }
 
-  alert(message);
+  alert(message)
   gameIsRunning = false
 })
