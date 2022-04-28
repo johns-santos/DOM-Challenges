@@ -10,8 +10,10 @@ GAME FUNCTION:
 // GAME VALUES
 let min = 1,
   max = 10,
-  winningNum = 2,
+  winningNum = getRandomNum(min, max),
   guessesLeft = 3;
+
+  console.log(winningNum);
 
 const UIGame = document.querySelector('#game'),
   UIMinNum = document.querySelector('.min-num'),
@@ -81,6 +83,12 @@ function gameOver (won, msg) {
   // Play again
   UIGuessBtn.value = 'Play Again!';
   UIGuessBtn.className += 'play-again';
+}
+
+// GET WINNING NUM
+function getRandomNum(min, max){
+    // Generate a random number between 1 and 10
+    return Math.floor(Math.random()*(max-min+1)+min);
 }
 
 // Set message - use color as a second property.
