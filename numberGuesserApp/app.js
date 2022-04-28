@@ -11,70 +11,80 @@ GAME FUNCTION:
 let min = 1,
   max = 10,
   winningNum = 2,
-  guessesLeft = 3
+  guessesLeft = 3;
 
 const UIGame = document.querySelector('#game'),
   UIMinNum = document.querySelector('.min-num'),
   UIMaxNum = document.querySelector('.max-num'),
   UIGuessBtn = document.querySelector('#guess-btn'),
   UIGuessInput = document.querySelector('#guess-input'),
-  UIMessage = document.querySelector('.message')
+  UIMessage = document.querySelector('.message');
 
 // ASSIGN UI min and max
-UIMinNum.textContent = min
-UIMaxNum.textContent = max
+UIMinNum.textContent = min;
+UIMaxNum.textContent = max;
+
+// Play again event listener
+UIGame.addEventListener('mousedown', function(e){
+    if(e.target.className === 'play-again'){
+        window.location.reload();
+    }
+
+})
 
 // EVENT LISTENER for submit button
-UIGuessBtn.addEventListener('click', function () {
-  let guess = parseInt(UIGuessInput.value)
-  console.log(guess)
+UIGuessBtn.addEventListener('click', function() {
+  let guess = parseInt(UIGuessInput.value);
 
-  // validate
-  if (isNaN(guess) || guess < min || guess > max) {
-    setMessage(`Please enter a number between ${min} and ${max}.`, 'red')
-  }
-
+  // Validate
+  if(isNaN(guess) || guess < min || guess > max){
+    setMessage(`Please enter a number between ${min} and ${max}.`, 'grey');
+    
+  } else if   
   // Check if WON
-  if (guess === winningNum) {
+  (guess === winningNum) {
     gameOver(true, `${winningNum} is correct!`)
 
-  } else {
+  }else{
     // Wrong guess ***********************
-    guessesLeft -= 1
-    setMessage(`You have ${guessesLeft} left.`)
+    guessesLeft -= 1;
+    // setMessage(`You have ${guessesLeft} left.`)
 
-    if (guessesLeft === 0) {
+    if(guessesLeft === 0) {
       // GAME OVER - lost
-      gameOver(false, `Game Over. You Lose!`)
-    } else {
+      gameOver(false, `Game Over. You Lose!`);
+    }else{
       // Game continues - answer wrong *****************
-      UIGuessInput.style.borderColor = 'red'
-
+      UIGuessInput.style.borderColor = 'red';
       // Clear input
-      UIGuessInput.value = ''
-
+      UIGuessInput.value = '';
       // Notify user guess is not correct.
-      setMessage(`(${guess}) is incorrect. ${guessesLeft} guesses remaining.`)
+      setMessage(`${guess} is not correct. ${guessesLeft} guesses remaining.`, 'red');
     }
   }
-})
+
+});
 
 // GAME OVER function
 function gameOver (won, msg) {
   let color
   won === true ? (color = 'green') : (color = 'red')
   // Disable input
-  UIGuessInput.disabled = true
+  UIGuessInput.disabled = true;
   // Change border color
   UIGuessInput.style.borderColor = color
   // Set text color
   UIMessage.style.color = color;
   // Set message
-  setMessage(msg)
+  setMessage(msg);
+
+  // Play again
+  UIGuessBtn.value = 'Play Again!';
+  UIGuessBtn.className += 'play-again';
 }
 
 // Set message - use color as a second property.
-function setMessage (msg, color) {
+function setMessage(msg, color) {
   UIMessage.style.color = color
   UIMessage.textContent = msg
 }
