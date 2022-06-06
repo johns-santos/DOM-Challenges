@@ -13,7 +13,10 @@ document.querySelector('#create-note').addEventListener('click', function (e) {
         body: ''
     })
     saveNotes(notes)
-    renderNotes(notes, filters)
+   
+    const hashId = (notes[notes.length - 1].id)
+    location.assign(`/edit.html#${hashId}`)
+
 })
 
 document.querySelector('#search-text').addEventListener('input', function (e) {
