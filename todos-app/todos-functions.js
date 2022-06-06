@@ -28,7 +28,7 @@ const renderTodos = function (todos, filters) {
         return !todo.completed
     })
 
-    
+  
     document.querySelector('#todos').innerHTML = ''
     document.querySelector('#todos').appendChild(generateSummaryDOM(incompleteTodos))
 
@@ -47,6 +47,16 @@ const removeTodo = function (id) {
     }
 }
 
+// Toggle the completed value foa given todo
+const toggleTodo = function(id) {
+    const todo = todos.find(function(todo){
+        return todo.id === id
+    })
+    if (todo !== undefined){
+        todo.completed = !todo.completed
+    }
+}
+
 // Get the DOM elements for an individual note
 const generateTodoDOM = function (todo) {
     const todoEl = document.createElement('div')
@@ -56,8 +66,16 @@ const generateTodoDOM = function (todo) {
 
     // 1) Setup the input checkbox - append to div
     checkbox.setAttribute('type', 'checkbox');
+    checkbox.checked = todo.completed    
     todoEl.appendChild(checkbox)
+    removeButton.setAttribute('id', 'todoBtn')
+    checkbox.addEventListener('change', function(){
+        toggleTodo(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
 
+    
     // 2) Place Todo object text property in span and a append to div
     todoText.textContent = todo.text
     todoEl.appendChild(todoText);
@@ -72,7 +90,6 @@ const generateTodoDOM = function (todo) {
 
     })
     
-
     // 4) Return DIV to be rendered
     return todoEl;
 }
