@@ -251,6 +251,18 @@ AWS offers [Trusted Advisor](https://aws.amazon.com/premiumsupport/technology/tr
     * Powers Amazon Alexa.
     * Integrate voice into device.
     * Usecases: Build virtual agents and voice assistants, automate informational responses, improve productivity with application bots, maxminize the information trapped in transcripts.
+
+[SUMMARY - REMBER FOR EXAM]
+ * [Comprehend]: is a natural-language processing (NLP) service that finds relationships in text.
+ * [Rekognition]:  allows you to automate your image and video analysis.
+ * [Polly]: turns text into speech
+ * [SageMaker]: helps you build, train, and deploy machine learning models quickly.
+ * [Translate]: provides language translation
+ * [Lex]: helps you build conversational interface like chatbots.
+
+
+
+      
 ## Storage
 1. [Simple Storage Service S3](https://docs.aws.amazon.com/cli/latest/reference/s3/) - Regional Service with global namespace and bucket policies
     * Unique name across all buckets in AWS
